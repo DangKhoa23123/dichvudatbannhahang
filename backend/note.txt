@@ -1,0 +1,8 @@
+Api đăng ký
+http://localhost:3000/api/register
+
+Api đăng nhập
+http://localhost:3000/api/login
+
+Api lấy toàn bộ thông tin users
+http://localhost:3000/api/users
