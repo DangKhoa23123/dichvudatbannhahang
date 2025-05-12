@@ -2,8 +2,10 @@ const express = require('express');
 const dotenv = require('dotenv');
 const { connectDB } = require('./config/db');
 const path = require('path');
-const authRoutes = require("./Routes/auth");
-const User = require("./Model/User");
+const login = require("./Routes/login_and_register/login");
+const register = require("./Routes/login_and_register/register");
+const allInfoUser = require('./Routes/user/all_info_user');
+
 
 
 dotenv.config();
@@ -14,19 +16,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-app.use("/api", authRoutes);
-
-// 📌 API lấy toàn bộ user
-app.get('/api/users', async (req, res) => {
-  try {
-      const users = await User.find();
-      res.json(users);
-  } catch (err) {
-      console.error("Lỗi khi lấy danh sách sách:", err);
-      res.status(500).json({ message: err.message });
-  }
-});
+// 📌 API Login
+app.use("", login);
+// 📌 API Register
+app.use("", register);
+// 📌 API All Info User
+app.use('', allInfoUser);
 
 
 connectDB(process.env.MONGO_URI);
