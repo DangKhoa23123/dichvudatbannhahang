@@ -49,8 +49,8 @@ class _SubscreenState extends State<Subscreen> {
                 'Đăng nhập',
                 style: TextStyle(
                   fontSize: 20,
-                  fontWeight: Tabchon == 1 ? FontWeight.bold : FontWeight.normal,
-                  color: Tabchon == 1 ? Colors.black : Colors.grey,
+                  fontWeight: Tabchon == 0 ? FontWeight.bold : FontWeight.normal,
+                  color: Tabchon == 0 ? Colors.black : Colors.grey,
                 ),
               ),
             ),
@@ -60,8 +60,8 @@ class _SubscreenState extends State<Subscreen> {
                 'Đăng ký',
                 style: TextStyle(
                   fontSize: 20,
-                  fontWeight: Tabchon == 0 ? FontWeight.bold : FontWeight.normal,
-                  color: Tabchon == 0 ? Colors.black : Colors.grey,
+                  fontWeight: Tabchon == 1 ? FontWeight.bold : FontWeight.normal,
+                  color: Tabchon == 1 ? Colors.black : Colors.grey,
                 ),
               ),
             ),

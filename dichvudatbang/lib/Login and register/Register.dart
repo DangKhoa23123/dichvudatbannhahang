@@ -3,6 +3,7 @@ import 'package:dichvudatbang/Login%20and%20register/Login.dart';
 import 'package:dichvudatbang/Login%20and%20register/Subscreen.dart';
 import 'package:dichvudatbang/Pages/Mainscreen.dart';
 import 'package:dichvudatbang/ipconfig.dart';
+import 'package:dichvudatbang/ui/text_field_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -34,8 +35,7 @@ class _RegisterState extends State<Register> {
 
     try {
       final response = await http.post(
-        Uri.parse(
-            '${ApiConfig.baseUrl}/api/register'), // Đổi thành IP nếu test trên thiết bị thật
+        Uri.parse('${ApiConfig.baseUrl}/register'),
         headers: {"Content-Type": "application/json"},
         body: jsonEncode({
           "username": _usernameController.text,
@@ -49,7 +49,7 @@ class _RegisterState extends State<Register> {
 
       if (response.statusCode == 200 && responseData['success']) {
         _showSnackBar("Đăng ký thành công!", Colors.green);
-        Future.delayed(Duration(seconds: 1), () {
+        Future.delayed(Duration(microseconds: 500), () {
           Navigator.pushReplacement(
             context,
             PageRouteBuilder(
@@ -102,84 +102,35 @@ class _RegisterState extends State<Register> {
               child: Icon(Icons.account_circle, size: 100, color: Colors.grey),
             ),
             const SizedBox(height: 10),
-            TextField(
-              controller: _usernameController,
-              decoration: InputDecoration(
-                labelText: 'Họ và tên',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-            ),
+            TextFieldUi(
+                controller: _usernameController,
+                obscureText: false,
+                labelText: 'Họ và tên'),
             const SizedBox(height: 10),
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                labelText: 'Email',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-            ),
+            TextFieldUi(
+                controller: _emailController,
+                obscureText: false,
+                labelText: 'Email'),
             const SizedBox(height: 10),
-            TextField(
-              controller: _phoneController,
-              decoration: InputDecoration(
-                labelText: 'Số điện thoại',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-            ),
+            TextFieldUi(
+                controller: _phoneController,
+                obscureText: false,
+                labelText: 'Số điện thoại'),
             const SizedBox(height: 10),
-            TextField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Mật khẩu',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-            ),
+            TextFieldUi(
+                controller: _passwordController,
+                obscureText: true,
+                labelText: 'Mật khẩu'),
             const SizedBox(height: 10),
-            TextField(
-              controller: _confirmPasswordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Nhập lại mật khẩu',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-            ),
+            TextFieldUi(
+                controller: _confirmPasswordController,
+                obscureText: true,
+                labelText: 'Nhập lại mật khẩu'),
             const SizedBox(height: 10),
             _isLoading
                 ? CircularProgressIndicator()
                 : ElevatedButton(
-                    // onPressed: () => Navigator.pushReplacement(
-                    //   context,
-                    //   PageRouteBuilder(
-                    //     transitionDuration: const Duration(
-                    //         milliseconds: 200), // Thời gian animation
-                    //     pageBuilder: (context, animation, secondaryAnimation) =>
-                    //         const Mainscreen(),
-                    //     transitionsBuilder:
-                    //         (context, animation, secondaryAnimation, child) {
-                    //       return SlideTransition(
-                    //         position: Tween<Offset>(
-                    //           begin: const Offset(
-                    //               -1.0, 0.0), // Bắt đầu từ bên phải
-                    //           end: Offset.zero, // Kết thúc ở vị trí bình thường
-                    //         ).animate(animation),
-                    //         child: child,
-                    //       );
-                    //     },
-                    //   ),
-                    // ),
-                    // child: const Text('Đăng Ký'),
-                    onPressed:
-                        _register, // Gọi hàm đăng ký thay vì chuyển trang ngay lập tức
+                    onPressed: _register,
                     child: _isLoading
                         ? CircularProgressIndicator()
                         : const Text('Đăng Ký'),

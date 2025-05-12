@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:dichvudatbang/Pages/Mainscreen.dart';
 import 'package:dichvudatbang/ipconfig.dart';
+import 'package:dichvudatbang/ui/social_icon_ui.dart';
+import 'package:dichvudatbang/ui/text_field_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -17,7 +19,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   late TextEditingController _emailController;
   late TextEditingController _passwordController;
-  bool _isLoading = false; // Kiểm soát trạng thái loading
+  bool _isLoading = false;
 
   @override
   void initState() {
@@ -36,7 +38,9 @@ class _LoginState extends State<Login> {
   Future<void> _login() async {
     if (_emailController.text.isEmpty || _passwordController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Vui lòng nhập đầy đủ thông tin!"), backgroundColor: Colors.red),
+        const SnackBar(
+            content: Text("Vui lòng nhập đầy đủ thông tin!"),
+            backgroundColor: Colors.red),
       );
       return;
     }
@@ -45,7 +49,7 @@ class _LoginState extends State<Login> {
       _isLoading = true;
     });
 
-    final url = Uri.parse('${ApiConfig.baseUrl}/api/login');
+    final url = Uri.parse('${ApiConfig.baseUrl}/login');
     try {
       final response = await http.post(
         url,
@@ -61,40 +65,45 @@ class _LoginState extends State<Login> {
       final data = jsonDecode(response.body);
 
       if (response.statusCode == 200 && data['success'] == true) {
-        // Xử lý an toàn hơn với null check
-        // globals.globalUserName = data['user']?['username'] ?? _usernameController.text;
-
         if (!mounted) return;
-        
+
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Đăng nhập thành công!"), backgroundColor: Colors.green),
+          const SnackBar(
+              content: Text("Đăng nhập thành công!"),
+              backgroundColor: Colors.green),
         );
-        
-         Navigator.pushReplacement(
-        context,
-        PageRouteBuilder(
-          transitionDuration: const Duration(milliseconds: 200), // Thời gian animation
-          pageBuilder: (context, animation, secondaryAnimation) => const Mainscreen(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(0.0, 1.0), // Bắt đầu từ bên phải
-                end: Offset.zero, // Kết thúc ở vị trí bình thường
-              ).animate(animation),
-              child: child,
-            );
-          },
-        ),
-      );
+
+        Navigator.pushReplacement(
+          context,
+          PageRouteBuilder(
+            transitionDuration: const Duration(milliseconds: 200),
+            pageBuilder: (context, animation, secondaryAnimation) =>
+                const Mainscreen(),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              return SlideTransition(
+                position: Tween<Offset>(
+                  begin: const Offset(0.0, 1.0),
+                  end: Offset.zero,
+                ).animate(animation),
+                child: child,
+              );
+            },
+          ),
+        );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(data["message"] ?? "Đăng nhập thất bại!"), backgroundColor: Colors.red),
+          SnackBar(
+              content: Text(data["message"] ?? "Đăng nhập thất bại!"),
+              backgroundColor: Colors.red),
         );
       }
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Lỗi kết nối đến server!"), backgroundColor: Colors.red),
+        const SnackBar(
+            content: Text("Lỗi kết nối đến server!"),
+            backgroundColor: Colors.red),
       );
     } finally {
       if (mounted) {
@@ -104,6 +113,8 @@ class _LoginState extends State<Login> {
       }
     }
   }
+
+  var mySB = SizedBox(height: 20);
 
   @override
   Widget build(BuildContext context) {
@@ -117,31 +128,20 @@ class _LoginState extends State<Login> {
               child: Icon(Icons.account_circle, size: 125, color: Colors.grey),
             ),
             const SizedBox(height: 20),
-            TextField(
-              controller: _emailController,
-              decoration: InputDecoration(
-                labelText: 'Email',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-            ),
+            TextFieldUi(
+                controller: _emailController,
+                obscureText: false,
+                labelText: 'Email'),
             const SizedBox(height: 20),
-            TextField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Mật khẩu',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-              ),
-            ),
+            TextFieldUi(
+                controller: _passwordController,
+                obscureText: true,
+                labelText: 'Mật khẩu'),
             const SizedBox(height: 20),
             _isLoading
                 ? CircularProgressIndicator()
                 : ElevatedButton(
-                    onPressed: _login, // Gọi hàm đăng nhập
+                    onPressed: _login,
                     child: const Text('Đăng nhập'),
                   ),
             const SizedBox(height: 10),
@@ -154,20 +154,26 @@ class _LoginState extends State<Login> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                GestureDetector(
-                  onTap: () => print("Nhấn vào Google"),
-                  child: Image.asset('assets/Google.png', width: 40),
-                ),
+                SocialIconUi(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Mainscreen()),
+                      );
+                    },
+                    iconPath: 'assets/Google.png'),
                 const SizedBox(width: 20),
-                GestureDetector(
-                  onTap: () => print("Nhấn vào Facebook"),
-                  child: Image.asset('assets/Facebook.png', width: 40),
-                ),
+                SocialIconUi(
+                    onTap: () {
+                      print("This is FaceBook");
+                    },
+                    iconPath: 'assets/Facebook.png'),
                 const SizedBox(width: 20),
-                GestureDetector(
-                  onTap: () => print("Nhấn vào Twitter"),
-                  child: Image.asset('assets/Twitter.png', width: 40),
-                ),
+                SocialIconUi(
+                    onTap: () {
+                      print("This is Twitter");
+                    },
+                    iconPath: 'assets/Twitter.png'),
               ],
             ),
           ],
