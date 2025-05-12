@@ -8,4 +8,4 @@ const User = new mongoose.Schema({
     thumnail: { type: String, } //If user donn't use thumnail, set default
 });
 
-module.exports = mongoose.model("User", User);
+module.exports = mongoose.model("User", User);  

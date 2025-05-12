@@ -17,11 +17,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // 📌 API Login
-app.use("", login);
+app.use("/api", login);
 // 📌 API Register
-app.use("", register);
+app.use("/api", register);
 // 📌 API All Info User
-app.use('', allInfoUser);
+app.use("/api", allInfoUser);
 
 
 connectDB(process.env.MONGO_URI);
