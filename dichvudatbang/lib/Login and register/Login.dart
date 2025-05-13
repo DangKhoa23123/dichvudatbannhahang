@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:dichvudatbang/Pages/Mainscreen.dart';
 import 'package:dichvudatbang/ipconfig.dart';
-import 'package:dichvudatbang/ui/social_icon_ui.dart';
-import 'package:dichvudatbang/ui/text_field_ui.dart';
+import 'package:dichvudatbang/ui/ui_social_icon.dart';
+import 'package:dichvudatbang/ui/ui_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -128,12 +128,12 @@ class _LoginState extends State<Login> {
               child: Icon(Icons.account_circle, size: 125, color: Colors.grey),
             ),
             const SizedBox(height: 20),
-            TextFieldUi(
+            UiTextField(
                 controller: _emailController,
                 obscureText: false,
                 labelText: 'Email'),
             const SizedBox(height: 20),
-            TextFieldUi(
+            UiTextField(
                 controller: _passwordController,
                 obscureText: true,
                 labelText: 'Mật khẩu'),
@@ -154,7 +154,7 @@ class _LoginState extends State<Login> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SocialIconUi(
+                UiSocialIcon(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -163,13 +163,13 @@ class _LoginState extends State<Login> {
                     },
                     iconPath: 'assets/Google.png'),
                 const SizedBox(width: 20),
-                SocialIconUi(
+                UiSocialIcon(
                     onTap: () {
                       print("This is FaceBook");
                     },
                     iconPath: 'assets/Facebook.png'),
                 const SizedBox(width: 20),
-                SocialIconUi(
+                UiSocialIcon(
                     onTap: () {
                       print("This is Twitter");
                     },

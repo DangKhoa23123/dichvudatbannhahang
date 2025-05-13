@@ -3,7 +3,7 @@ import 'package:dichvudatbang/Login%20and%20register/Login.dart';
 import 'package:dichvudatbang/Login%20and%20register/Subscreen.dart';
 import 'package:dichvudatbang/Pages/Mainscreen.dart';
 import 'package:dichvudatbang/ipconfig.dart';
-import 'package:dichvudatbang/ui/text_field_ui.dart';
+import 'package:dichvudatbang/ui/ui_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -102,27 +102,27 @@ class _RegisterState extends State<Register> {
               child: Icon(Icons.account_circle, size: 100, color: Colors.grey),
             ),
             const SizedBox(height: 10),
-            TextFieldUi(
+            UiTextField(
                 controller: _usernameController,
                 obscureText: false,
                 labelText: 'Họ và tên'),
             const SizedBox(height: 10),
-            TextFieldUi(
+            UiTextField(
                 controller: _emailController,
                 obscureText: false,
                 labelText: 'Email'),
             const SizedBox(height: 10),
-            TextFieldUi(
+            UiTextField(
                 controller: _phoneController,
                 obscureText: false,
                 labelText: 'Số điện thoại'),
             const SizedBox(height: 10),
-            TextFieldUi(
+            UiTextField(
                 controller: _passwordController,
                 obscureText: true,
                 labelText: 'Mật khẩu'),
             const SizedBox(height: 10),
-            TextFieldUi(
+            UiTextField(
                 controller: _confirmPasswordController,
                 obscureText: true,
                 labelText: 'Nhập lại mật khẩu'),
