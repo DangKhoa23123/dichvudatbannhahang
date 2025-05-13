@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:dichvudatbang/Pages/Mainscreen.dart';
-import 'package:dichvudatbang/ipconfig.dart';
+import 'package:dichvudatbang/ipconfig/ipconfig.dart';
 import 'package:dichvudatbang/ui/ui_social_icon.dart';
 import 'package:dichvudatbang/ui/ui_text_field.dart';
 import 'package:flutter/material.dart';

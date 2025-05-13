@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:dichvudatbang/Login%20and%20register/Login.dart';
 import 'package:dichvudatbang/Login%20and%20register/Subscreen.dart';
 import 'package:dichvudatbang/Pages/Mainscreen.dart';
-import 'package:dichvudatbang/ipconfig.dart';
+import 'package:dichvudatbang/ipconfig/ipconfig.dart';
 import 'package:dichvudatbang/ui/ui_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
